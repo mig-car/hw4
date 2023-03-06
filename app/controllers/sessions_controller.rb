@@ -13,8 +13,8 @@ class SessionsController < ApplicationController
             
             # session[] is a hash of cookies not available to the end user. It's available to the browser, though. 
             # this is so savvy users cannot edit the cookies via dev tools on browser.
-            session["username"] = @user["username"]
-
+            session["user_id"] = @user["id"]
+            
             # if they do, send them in...
             flash["notice"] = "Welcome!"
             redirect_to "/places"
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   end
 
     def destroy
-      session["username"] = nil
+      session["user_id"] = nil
       redirect_to "/sessions/new"
     end
 end
