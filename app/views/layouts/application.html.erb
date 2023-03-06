@@ -11,14 +11,23 @@
 
   <body>
     <div>
-      <%= flash["notice"] %>
-    </div>
-    <div>
       <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
+        <!-- If logged in, display the welcome -->
+      <% @current_user = User.find_by({"username" => session["username"]}) %>
+      <% if @current_user %>
+        Hey, <%= @current_user["username"] %> |
+        <a href="/logout"> Logout </a>
+      <% else %>
+        <p>
+          <a href="/sessions/new">Login</a>
+          |
+          <a href="/users/new">Sign Up</a>
+        </p>
+      <% end %>
     </div>
+    <p>
+      <%= flash["notice"] %>
+    </p>
 
     <%= yield %>
   </body>
