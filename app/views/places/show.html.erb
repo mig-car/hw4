@@ -1,5 +1,6 @@
 <h1><%= @place["name"] %></h1>
 
+<% if @current_user %>
 <p>
   <a href="/posts/new?place_id=<%= @place["id"] %>" class="btn btn-primary">New Post</a>
 </p>
@@ -20,6 +21,12 @@
   <% end %>
 
 </div>
+
+<% else %>
+  <p> Please log-in to see posts. </p>
+
+<% end %>
+
 
 <p>
   <a href="/places">Back to All Places</a>
