@@ -6,16 +6,21 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new
-    @post["title"] = params["post"]["title"]
-    @post["description"] = params["post"]["description"]
-    @post["posted_on"] = params["post"]["posted_on"]
-    @post["place_id"] = params["post"]["place_id"]
-    @post["user_id"] = @current_user["id"]
-    #session["user_id"]
-    @post["image"] = params["post"]["image"]
-    @post.save
-    redirect_to "/places/#{@post["place_id"]}"
-  end
+    if @current_user
+      @post = Post.new
+      @post["title"] = params["post"]["title"]
+      @post["description"] = params["post"]["description"]
+      @post["posted_on"] = params["post"]["posted_on"]
+      @post["place_id"] = params["post"]["place_id"]
+      @post["user_id"] = @current_user["id"] # previously session["user_id"]
+      @post.uploaded_image.attach(params["post"]["uploaded_image"]) # previously @post["image"] = params["post"]["image"]
+      @post.save
+    else
+      flash["notice"] = "Login first."
+    end
 
+    redirect_to "/places/#{@post["place_id"]}"
+
+  end
+  
 end
