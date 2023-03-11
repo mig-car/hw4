@@ -2,15 +2,15 @@
 
 <% if @current_user %>
 <p>
-  <a href="/posts/new?place_id=<%= @place["id"] %>" class="btn btn-primary">New Post</a>
+  <a href="/posts/new?place_id=<%= @place["id"] %>" class="btn btn-primary my-4">New Post</a>
 </p>
 
-<div class="row">
+<div class="row my-4">
 
   <h2>My Posts</h2>
   <% for post in @posts %>
 
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4 mx-4 my-4">
         <h3><%= post["title"] %></h3>
         <h4><%= post["posted_on"] %></h4>
         <img src="<%= post["image"] %>" class="img-fluid">
